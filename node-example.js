@@ -1,6 +1,6 @@
-const { OdtTemplater } = require("odt-templater");
-const fs = require("fs");
-const PizZip = require("pizzip");
+import fs from "fs";
+import PizZip from "pizzip";
+import { OdtTemplater } from "odt-templater";
 
 const data = {
   title: "Hello World",
@@ -20,13 +20,13 @@ const templateBuffer = fs.readFileSync("./template.odt");
 const zip = new PizZip(templateBuffer);
 const content = zip.file("content.xml").asText();
 
-// 3. Initialize OdtTemplater and render the document
+// 2. Initialize OdtTemplater and render the document
 const templater = new OdtTemplater(content);
 const renderedContent = templater.render(data);
 
-// 4. Replace the content in the ZIP
+// 3. Replace the content in the ZIP
 zip.file("content.xml", renderedContent);
 
-// 5. Generate the output ODT file
+// 4. Generate the output ODT file
 const outputBuffer = zip.generate({ type: "nodebuffer" });
 fs.writeFileSync("./output.odt", outputBuffer);
