@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "odt-templater": "file:../odt-templater",
+    "pizzip": "^3.2.0"
+  }
+}
