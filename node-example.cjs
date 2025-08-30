@@ -18,7 +18,9 @@ const data = {
 // 1. Load the ODT template file
 const templateBuffer = fs.readFileSync("./template.odt");
 const zip = new PizZip(templateBuffer);
-const content = zip.file("content.xml").asText();
+const contentFile = zip.file("content.xml");
+if (!contentFile) throw new Error("content.xml not found in the ODT file.");
+const content = contentFile.asText();
 
 // 2. Initialize OdtTemplater and render the document
 const templater = new OdtTemplater(content);

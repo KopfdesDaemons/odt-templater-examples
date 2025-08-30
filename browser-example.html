@@ -68,7 +68,9 @@
         // 2. Get the 'content.xml' from the ODT file
         const jszip = new JSZip();
         const zip = await jszip.loadAsync(templateArrayBuffer);
-        const content = await zip.file("content.xml").async("string");
+        const contentFile = zip.file("content.xml");
+        if (!contentFile) throw new Error("content.xml not found in the ODT file.");
+        const content = await contentFile.async("string");
 
         // 3. Initialize OdtTemplater and render the document
         const templater = new OdtTemplater(content);
