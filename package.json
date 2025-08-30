@@ -1,7 +1,17 @@
 {
+  "name": "odt-templater-examples",
+  "version": "1.0.0",
+  "description": "Minimal examples for using the odt-templater in Node.js and in the browser.",
   "type": "module",
+  "scripts": {
+    "start": "http-server -o browser-example.html"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
   "dependencies": {
-    "odt-templater": "file:../odt-templater",
+    "npm": "^11.5.2",
+    "odt-templater": "^1.0.0",
     "pizzip": "^3.2.0"
   }
 }

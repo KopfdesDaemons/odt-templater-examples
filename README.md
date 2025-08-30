@@ -2,7 +2,19 @@
 
 Minimal examples for using the odt-templater in Node.js and in the browser.
 
-## Usage in Node.js
+### Usage in Node.js
+
+ESM:
+
+```bash
+node node-example.js
+```
+
+CommonJS:
+
+```bash
+node node-example.cjs
+```
 
 ```js
 const { OdtTemplater } = require("odt-templater");
@@ -25,7 +37,9 @@ const data = {
 // 1. Load the ODT template file
 const templateBuffer = fs.readFileSync("./template.odt");
 const zip = new PizZip(templateBuffer);
-const content = zip.file("content.xml").asText();
+const contentFile = zip.file("content.xml");
+if (!contentFile) throw new Error("content.xml not found in the ODT file.");
+const content = contentFile.asText();
 
 // 2. Initialize OdtTemplater and render the document
 const templater = new OdtTemplater(content);
@@ -39,7 +53,13 @@ const outputBuffer = zip.generate({ type: "nodebuffer" });
 fs.writeFileSync("./output.odt", outputBuffer);
 ```
 
-## Usage in the browser
+### Usage in the browser
+
+Start the `borwser-example.html`
+
+```bash
+npm i && npm start
+```
 
 ```js
 async function generateOdtDocument() {
@@ -63,7 +83,9 @@ async function generateOdtDocument() {
   // 2. Get the 'content.xml' from the ODT file
   const jszip = new JSZip();
   const zip = await jszip.loadAsync(templateArrayBuffer);
-  const content = await zip.file("content.xml").async("string");
+  const contentFile = zip.file("content.xml");
+  if (!contentFile) throw new Error("content.xml not found in the ODT file.");
+  const content = await contentFile.async("string");
 
   // 3. Initialize OdtTemplater and render the document
   const templater = new OdtTemplater(content);
